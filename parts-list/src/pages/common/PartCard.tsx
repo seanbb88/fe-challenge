@@ -1,62 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
-import *  as yup from 'yup';
+import cx from 'classnames'; 
+//import *  as yup from 'yup';
 import { Form } from 'semantic-ui-react';
+import { PartListModel } from '../../store/partslisthome/types';
 
 
-
-// export interface PartCardProps {
-
-// }
-
-
-export class PartCard extends React.Component{
-
-  handleSubmit = async (values: any) => {
-      console.log(values)
-  }
-
-
-  render () {
-
-    const initialValues = {
-      quantity: '',
-    }
-
-    return (
-      <div className='part-card-container'>
-          <div>Its a Part</div>
-          <Formik
-            initialValues={initialValues}
-            validateOnMount={true}
-            //validationSchema={this.getSchema(dataTypeId)}
-            onSubmit={(values) => this.handleSubmit(values)}
-          >
-            {props => {
-              const { setFieldValue } = props;
-
-              return (
-                <Form className="part-card-forms" onSubmit={props.submitForm}>
- 
-                </Form>
-              )
-            }}
-          </Formik>
-      </div>
-    )
-  }
+export interface PartCardProps {
+  part: PartListModel; 
+  handleSubmittingQtyUpdate: (id: number, quantity: string, partName: string) => void; 
 }
 
+export const PartCard: React.FunctionComponent<PartCardProps> = (props: PartCardProps) => {
 
-// const mapStateToProps = (state: RootState) => ({
+  const [updatedQty, setUpdatedQty] = useState('');
 
-// })
+  const initialValues = {
+    quantity: '',
+  }
 
+  const handleSubmit = async (values: any) => {
+    props.handleSubmittingQtyUpdate(props.part.id, values.quantity, props.part.part_file.file_name)
+  }
+  console.log(props.part)
+  const partName = props.part.part_file.file_name; 
+  const partQty = props.part.quantity; 
+  return (
+    <div className='part-card'>
+      <div className="part-name-container">
+        <div className="label">Part Name</div>
+        <div className="part-name">{partName}</div>
+      </div>      
+      <div className={cx("part-quantity-container", { "hidden" : updatedQty === "" })}>
+        <div className="label">Original Qty</div>
+        <div className="part-quantity">{partQty}</div>
+      </div>
+      <Formik
+        initialValues={initialValues}
+        validateOnMount={true}
+        //validationSchema={this.getSchema(dataTypeId)}
+        onSubmit={(values) => handleSubmit(values)}
+      >
+        {props => {
+          //const { setFieldValue } = props;
 
-
-
-// const mapDispatchToProps = (dispatch: any) => ({
-
-// });
-
-export default (PartCard);
+          return (
+            <Form className="part-card-form" onSubmit={props.submitForm}>
+              <Form.Input
+                name="quantity"
+                className="quantity-input"
+                label="Quantity"
+                value={updatedQty}
+                onChange={(e, d) => {
+                  props.setFieldValue('quantity', d.value)
+                  setUpdatedQty(d.value)
+                }}
+                />
+                <button className="submit-button" type="submit">Save Quantity</button>
+            </Form>
+          )
+        }}
+      </Formik>
+  </div>
+  )
+}

@@ -1,0 +1,53 @@
+@import './tokens'; 
+@import './classes'; 
+
+.part-card{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    height: 80px; 
+
+    .label {
+        font-weight: $font-weight-1;
+    }
+
+    .part-quantity-container{
+
+        &.hidden{
+            visibility: hidden;
+        }
+    }
+
+    .quantity-input,
+    .part-name-container, 
+    .part-quantity-container{
+        align-self: center;
+    }
+
+    .part-card-form{
+        display: flex; 
+        flex-direction: row;
+        width: 220px; 
+        height: 80px; 
+
+        .quantity-input{
+            width: 110px; 
+            margin: 0; 
+            .input{
+                input{
+                    width: 90px; 
+                    height: 30px;
+                }
+            }
+
+            label{
+                font-weight: $font-weight-1; 
+            }
+        }
+
+        .submit-button{
+            @include submit-button();
+        }
+    }
+
+}

@@ -1,0 +1,63 @@
+@import '../Common/tokens'; 
+
+body{
+    margin: 0; 
+}
+
+.parts-list-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    padding: 5vh 20px;
+    background: $white-primary;
+    font-family: $font-family-sans-reg;
+
+
+    .app-error {
+        color: $red-error;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .loader-container {
+        width: 48%;
+        height: 90vh;
+        position: absolute;
+        top: 29px;
+        right: 14px;
+
+    }
+
+    .header{
+        size: $font-size-2;
+        color: $blue-primary; 
+        text-align: center;
+    }
+
+    .part-card-container{
+        border-radius: 10px;
+        color: $black-primary;
+        width: 80%; 
+        align-self: center;
+        height: 80px;
+        background: $white-secondary;
+        box-shadow: $box-shadow-reg;
+    }
+
+    .part-qty-update-success-message{
+        width: 351px;
+        position: absolute;
+        height: 41px;
+        border-top-left-radius: 10px;
+        background: #91b891;
+        bottom: 0;
+        right: 0;
+
+        .success-message{
+            color: $white-primary; 
+            padding: 10px; 
+        }
+    }
+
+}

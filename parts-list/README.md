@@ -1,46 +1,143 @@
-# Getting Started with Create React App
+# Rendering Parts
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Challenge
 
-## Available Scripts
+For this challenge, we'd like you to create a client-side application that consumes an API, renders a paginated list of parts, and provides a simple form interface for editing part attributes.
 
-In the project directory, you can run:
+We've provided a Node Express server that returns part and manufacturing process data. This data is a simplified example of the kind we work with every day at Fast Radius. Parts include information about a 3D part file (normally a CAD file such as `.stl` or `.step`) as well as specifications for manufacturing them.
 
-### `yarn start`
+### Instructions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img align="right" src="https://user-images.githubusercontent.com/163537/117349941-976d6b00-ae71-11eb-9090-ba364a1583f3.png" />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You may develop your solution using JavaScript, TypeScript, or any front-end framework you like. Your implementation should include the following:
 
-### `yarn test`
+- Show a paginated list of Parts from the server
+- A way to move back and forth between the pages
+- Each Part should have an editable input - Quantity (number field)
+- Ability to "Save" the part on the server
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> Note: the server does not have a database, so any changes you "save" will be reset on page refresh. We're just looking for a PUT request to be made.
 
-### `yarn build`
+Styling and layout is up to you. The layout should be readable and intuitive. If styling is your forte, feel free to show off, but extensive styling is not required.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This challenge is meant to showcase your front-end development skills, but not meant to eat up all your free time. Please aim to spend 3-5 hours on this challenge.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can see a rough mockup of what we're looking for on the right. But feel free to design it however you'd like!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### API Server
 
-### `yarn eject`
+You can start the server using:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+yarn server
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+and it will listen for requests on port **5555**, for example:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```http
+GET http://localhost:5555/parts
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Using Dependencies
 
-## Learn More
+This challenge is open-ended. If you have libraries you prefer, say for form or state management, feel free to use them. If you have questions about library usage, please email the hiring manager for more information.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Acceptance Criteria
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] Part names are displayed in a list from the server
+- [ ] Part list is paginated, 5 per page
+- [ ] You can move between pages
+- [ ] Each part renders a Quantity input
+- [ ] You can "Save" each Part using a `PUT` request
+
+We're primarily looking for clean, extensible code that shows you have a good understanding of handling API calls, managing state, and working with forms. Ideally, the code should be tested.
+
+Along with your solution please provide a README that includes the following:
+
+- Instructions for running your code
+- An explanation of the design decisions you made
+
+Later in the interview process, we'll ask you to add functionality onto this project as part of a code extension interview.
+
+## API Documentation
+
+- [Show Parts](#get-parts) - `GET http://localhost:5555/parts`
+- [Update Part](#put-partsid) - `PUT htt://localhost:5555/parts/:id`
+
+---
+
+### GET `/parts`
+
+Get part data with a `GET` request to `/parts`:
+
+```http
+GET /parts/?page=1
+```
+
+#### URL Params:
+
+| Parameter    | Type      | Description                  |
+| :----------- | :-------- | :--------------------------- |
+| `page` | `integer` | specify which page to render |
+
+#### Response:
+
+The server is configured to send back entries for the page number you requested in your query param.
+
+If you do not request a page, it will send the first page.
+
+The server will respond with Part data like this:
+
+```javascript
+{
+  data: [
+    {
+      id: "1",
+      part_file: { file_name: "part-1.stl", id: "1", units: "mm" },
+      quantity: "12",
+    },
+    ...
+  ]
+}
+```
+
+#### Pagination Headers:
+
+The response also includes **HTTP headers** with pagination information:
+
+| Header          | Type      | Description                          |
+| :-------------- | :-------- | :----------------------------------- |
+| `per-page`      | `integer` | how many items are rendered per page |
+| `page-number`   | `integer` | the current page we're rendering     |
+| `total-entries` | `integer` | the total number of items            |
+| `total-pages`   | `integer` | the total number of pages            |
+
+Example:
+
+```
+{
+  "per-page": 5,
+  "page-number": 1,
+  "total-entries": 22,
+  "total-pages": 5
+}
+```
+
+---
+
+### PUT `/parts/:id`
+
+Update part data with a `PUT` request to `/parts/:id`
+
+```http
+PUT /parts/1
+```
+
+> Note: the server does not have a database, so any changes you "save" will be reset on page refresh. We're just looking for a PUT request to be made.
+
+#### Data Params:
+
+| Parameter  | Type      | Description         |
+| :--------- | :-------- | :------------------ |
+| `quantity` | `integer` | the number of Parts |
