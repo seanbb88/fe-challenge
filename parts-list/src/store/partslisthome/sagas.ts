@@ -31,7 +31,6 @@ export function* getPartsListSaga () {
 export function* updatePartsQtySaga(action: any){
   try {
     const response:ResponseGenerator =  yield call(updatePartsQty, action.payload.id, action.payload.quantity)
-    console.log(response)
     const updatedQuantity = response.data.data.quantity
     yield put(updatePartQuantitySuccess(action.payload.id ,updatedQuantity, action.payload.partName))
   } catch(e){

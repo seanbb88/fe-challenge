@@ -25,7 +25,7 @@ export const Pagination: React.FunctionComponent<PaginationProps> = (props: Pagi
   }
 
   return (
-    <div className="table-pagination-container">
+    <div className="pagination-container">
       <div className="paging-status">{props.pagingStatus}</div>
       <Icon id="pagination-left" 
         className={cx('pagination', { 'disabled' : props.currentPage === 1})}

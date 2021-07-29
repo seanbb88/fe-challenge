@@ -23,15 +23,7 @@ export interface PartsListHomeProps {
     updatePartQuantity: (id: number, quantity: number, partName: string) => void
 }
 
-
-
 export class PartsListHome extends React.Component<PartsListHomeProps>{
-  constructor (props: PartsListHomeProps) {
-    super(props);
-    this.state = {
-
-    }
-  }
 
   componentDidMount () {
     this.getData();
@@ -63,7 +55,7 @@ export class PartsListHome extends React.Component<PartsListHomeProps>{
     const pagingStatus = PaginationHelper(pageSize, currentPage, totalCount);
     return (
         <div className='parts-list-container'>
-          {isLoading && <Dimmer active inverted><Loader inverted content='Loading' /></Dimmer>}
+          {isLoading && <Dimmer active inverted><Loader data-testid="loader" inverted content='Loading' /></Dimmer>}
           <h1 className="header">Fast Radius Parts List</h1>
           <Pagination
               pagingStatus={pagingStatus}

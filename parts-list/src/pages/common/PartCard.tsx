@@ -23,7 +23,7 @@ export const PartCard: React.FunctionComponent<PartCardProps> = (props: PartCard
     props.handleSubmittingQtyUpdate(props.part.id, values.quantity, props.part.part_file.file_name)
     setUpdatedQty("")
   }
-  console.log(props.part)
+
   const partName = props.part.part_file.file_name; 
   const partQty = props.part.quantity; 
   return (
