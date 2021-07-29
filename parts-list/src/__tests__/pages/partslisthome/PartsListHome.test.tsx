@@ -25,3 +25,8 @@ test('shows loader on mount', () => {
   render(<PartsListHome {...defaultProps}  />)
   expect(screen.getByTestId('loader')).toHaveTextContent("Loading")
 })
+
+test('shows correct paging status', () => {
+  render(<PartsListHome {...defaultProps}  />)
+  expect(screen.getByTestId('paging-status')).toHaveTextContent("1 - 5 of 20")
+})

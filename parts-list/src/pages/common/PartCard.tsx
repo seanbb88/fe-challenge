@@ -30,11 +30,11 @@ export const PartCard: React.FunctionComponent<PartCardProps> = (props: PartCard
     <div className='part-card'>
       <div className="part-name-container">
         <div className="label">Part Name</div>
-        <div className="part-name">{partName}</div>
+        <div data-testid="part-name" className="part-name">{partName}</div>
       </div>      
       <div className={cx("part-quantity-container", { "hidden" : updatedQty === "" })}>
         <div className="label">Original Qty</div>
-        <div className="part-quantity">{partQty}</div>
+        <div data-testid="part-qty" className="part-quantity">{partQty}</div>
       </div>
       <Formik
         initialValues={initialValues}
