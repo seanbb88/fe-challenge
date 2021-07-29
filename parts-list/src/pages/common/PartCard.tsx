@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import cx from 'classnames'; 
-//import *  as yup from 'yup';
 import { Form } from 'semantic-ui-react';
 import { PartListModel } from '../../store/partslisthome/types';
 
@@ -21,6 +20,7 @@ export const PartCard: React.FunctionComponent<PartCardProps> = (props: PartCard
 
   const handleSubmit = async (values: any) => {
     props.handleSubmittingQtyUpdate(props.part.id, values.quantity, props.part.part_file.file_name)
+    setUpdatedQty("")
   }
   console.log(props.part)
   const partName = props.part.part_file.file_name; 
@@ -37,13 +37,9 @@ export const PartCard: React.FunctionComponent<PartCardProps> = (props: PartCard
       </div>
       <Formik
         initialValues={initialValues}
-        validateOnMount={true}
-        //validationSchema={this.getSchema(dataTypeId)}
         onSubmit={(values) => handleSubmit(values)}
       >
         {props => {
-          //const { setFieldValue } = props;
-
           return (
             <Form className="part-card-form" onSubmit={props.submitForm}>
               <Form.Input
