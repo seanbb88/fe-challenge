@@ -12,7 +12,7 @@ A user is able to page between the avaiable parts with a list of 5 showing. A us
 ### Technologies Used
 - Framework: React
 - Languages: JSX/Typescript
-- Front-End: Sass, design tokens and classes, semantic-ui-react, classnames, formik
+- Front-End: Sass, design tokens and global classes, semantic-ui-react, classnames, formik
 - Axios for http requests
 - React-Sagas for middleware 
 - React Testing Libraries for unit tests
