@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { connect } from 'react-redux';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import { getPartsList, updatePageNumber, updatePartQuantity } from '../../store/partslisthome/actions';
 import { PartListModel, UpdatePartsQuantityModel } from '../../store/partslisthome/types';
 import { RootState } from '../../store/RootState';
@@ -11,7 +12,7 @@ import { PartCard } from '../common/PartCard';
 
 export interface PartsListHomeProps {
     isLoading: boolean,
-    errorText: string, 
+    isError: boolean, 
     partsList: PartListModel[],
     pageSize: number,
     currentPage: number, 
@@ -57,11 +58,12 @@ export class PartsListHome extends React.Component<PartsListHomeProps>{
   }
 
   render () {
-    const { partsList, isLoading, pageSize, currentPage, totalCount, updatedQuantityModel } = this.props; 
+    const { partsList, isLoading, isError,  pageSize, currentPage, totalCount, updatedQuantityModel } = this.props; 
     const { id, quantity, partName } = updatedQuantityModel; 
     const pagingStatus = PaginationHelper(pageSize, currentPage, totalCount);
     return (
         <div className='parts-list-container'>
+          {isLoading && <Dimmer active inverted><Loader inverted content='Loading' /></Dimmer>}
           <h1 className="header">Fast Radius Parts List</h1>
           <Pagination
               pagingStatus={pagingStatus}
@@ -69,18 +71,22 @@ export class PartsListHome extends React.Component<PartsListHomeProps>{
               currentPage={currentPage}
               totalCount={totalCount}
               onPageChange={this.handlePageChange}
-            />
-            <div className='part-card-container'>
-                <PartCard part={{id: 1, part_file: { file_name: 'file.txt', id: 1, units: '2'}, quantity: '23'}} handleSubmittingQtyUpdate={this.handleUpdatingPartQuantity} />
-            </div>   
-          {partsList && partsList.map((part: PartListModel) => {
-            <div className='part-card-container'>
-                hey
-            </div>       
+            />  
+          {!isLoading && partsList && partsList.map((part: PartListModel) => {
+          return (  
+            <div key={part.id} className='part-card-container'>
+              <PartCard part={{id: part.id, part_file: part.part_file, quantity: part.quantity}} handleSubmittingQtyUpdate={this.handleUpdatingPartQuantity} />
+            </div> 
+          )      
           })}
           { id !== -1 &&
             <div className='part-qty-update-success-message'>
                 <div className='success-message'>{`Part Number: ${partName} quantity successfully changed to ${quantity}`}</div>
+            </div>
+          }
+          { isError &&
+            <div className='part-qty-update-error-message'>
+              <div className='error-message'>{`Error in updating quantity`}</div>
             </div>
           }
         </div>
@@ -92,7 +98,7 @@ export class PartsListHome extends React.Component<PartsListHomeProps>{
 const mapStateToProps = (state: RootState) => {
   return ({
     isLoading: state.PartsListHomeState.partsListHome.isLoading,
-    errorText: state.PartsListHomeState.partsListHome.errorText, 
+    isError: state.PartsListHomeState.partsListHome.isError, 
     partsList: state.PartsListHomeState.partsListHome.partsList, 
     pageSize: state.PartsListHomeState.partsListHome.pageSize,
     currentPage: state.PartsListHomeState.partsListHome.currentPage, 

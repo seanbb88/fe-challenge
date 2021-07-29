@@ -38,26 +38,38 @@ body{
     .part-card-container{
         border-radius: 10px;
         color: $black-primary;
-        width: 80%; 
+        margin-bottom: 8px; 
+        width: 70%; 
         align-self: center;
         height: 80px;
         background: $white-secondary;
         box-shadow: $box-shadow-reg;
     }
 
-    .part-qty-update-success-message{
-        width: 351px;
+    .part-qty-update-success-message, 
+    .part-qty-update-error-message{
+        width: 400px;
         position: absolute;
         height: 41px;
         border-top-left-radius: 10px;
-        background: #91b891;
         bottom: 0;
         right: 0;
 
+        .error-message,
         .success-message{
             color: $white-primary; 
             padding: 10px; 
         }
+
+    }
+
+
+    .part-qty-update-success-message{
+        background: #91b891;
+    }
+
+    .part-qty-update-error-message{
+        background: #ca8686;
     }
 
 }

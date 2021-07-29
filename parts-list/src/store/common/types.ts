@@ -1,6 +1,5 @@
 export interface ErrorModel {
-    message: string, 
-    status: string,
+    isError: boolean
 }
 
 export interface ResponseGenerator{

@@ -5,6 +5,7 @@ import { PartsListHomeActionTypes,
   GET_PARTS_LIST_FAILURE,
   UPDATE_PAGE_NUMBER,
   UPDATE_PART_QTY_SUCCESS,
+  UPDATE_PART_QTY_FAILURE,
 } from './constants';
 import { PartsListHomeState } from './types';
 
@@ -15,7 +16,7 @@ const initialState: PartsListHomeState = {
         currentPage: 1,
         pageSize: 5,
         isLoading: false,
-        errorText: '',
+        isError: false,
     }, 
     updatedQuantityModel : {
       id: -1, 
@@ -35,7 +36,7 @@ export function partsListHomeReducer (
         partsListHome: {
             ...state.partsListHome,
             isLoading: true, 
-            errorText: ''
+            isError: false
         }
       }
     case GET_PARTS_LIST_SUCCESS:
@@ -48,7 +49,7 @@ export function partsListHomeReducer (
             currentPage: action.payload.currentPage,
             pageSize: action.payload.pageSize,
             isLoading: false, 
-            errorText: ''
+            isError: false
         }
       }
     case GET_PARTS_LIST_FAILURE:
@@ -57,7 +58,7 @@ export function partsListHomeReducer (
         partsListHome: {
             ...state.partsListHome,
             isLoading: false, 
-            errorText: action.payload.message
+            isError: true
         }
       }
     case UPDATE_PAGE_NUMBER: 
@@ -66,13 +67,23 @@ export function partsListHomeReducer (
         partsListHome: {
           ...state.partsListHome, 
           currentPage: action.payload
-        }
+        }, 
+        updatedQuantityModel: initialState.updatedQuantityModel
       }
 
     case UPDATE_PART_QTY_SUCCESS: 
       return {
         ...state, 
         updatedQuantityModel: action.payload
+      }
+
+    case UPDATE_PART_QTY_FAILURE: 
+      return {
+        ...state, 
+        partsListHome: {
+          ...state.partsListHome, 
+          isError: true
+        }
       }
     default:
       return state

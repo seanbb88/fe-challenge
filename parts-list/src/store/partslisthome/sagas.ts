@@ -1,4 +1,4 @@
-import { call, put, takeEvery, all, select } from 'redux-saga/effects';
+import { call, put, takeEvery, all, select, delay } from 'redux-saga/effects';
 import { fetchPartsList, updatePartsQty } from '../../api/partslisthome/PartsListHome';
 import { ResponseGenerator } from '../common/types';
 import { getPartsListFailure, getPartsListSuccess, updatePartQuantityFailure, updatePartQuantitySuccess } from './actions';
@@ -20,6 +20,7 @@ export function* getPartsListSaga () {
       currentPage: page, 
       pageSize: pageSize
     }
+    yield delay(1000)
     yield put(getPartsListSuccess(responseData))
   } catch (e) {
     yield put(getPartsListFailure(e))

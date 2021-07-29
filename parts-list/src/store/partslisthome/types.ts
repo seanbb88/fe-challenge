@@ -15,7 +15,7 @@ export interface PartsListHomeModel {
     currentPage: number, 
     totalCount: number,   
     isLoading: boolean, 
-    errorText: string
+    isError: boolean
 }
 
 export interface PartListModel {
