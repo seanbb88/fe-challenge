@@ -47,6 +47,6 @@ app.put('/parts/:id', (req, res) => {
   return res.json({ data: req.body });
 });
 
-const PORT = 5555;
+const PORT = 5000;
 
 app.listen(PORT, () => console.log(`Server running: http://localhost:${PORT}`));
