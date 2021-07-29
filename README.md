@@ -2,7 +2,7 @@
 
 ## Running the project
 
-- clone the repository and cd into ./parts-list
+- clone the repository and cd into parts-list
 - run npm install
 - when that is finished run the command npm run dev. That will start up the server/client side front end
 
