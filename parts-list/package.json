@@ -35,7 +35,7 @@
     "yup": "^0.31.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "\"node-env-run server --exec nodemon\"",
     "dev": "concurrently \"node-env-run server --exec nodemon\" \"npm run start\"",
     "server" : "\"node-env-run server --exec nodemon\"",
     "build": "react-scripts build",
