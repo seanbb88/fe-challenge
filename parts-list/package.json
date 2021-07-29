@@ -37,6 +37,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "concurrently \"node-env-run server --exec nodemon\" \"npm run start\"",
+    "server" : "\"node-env-run server --exec nodemon\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
