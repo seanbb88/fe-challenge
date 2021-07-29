@@ -10,7 +10,7 @@ const app = express();
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static(path.resolve(__dirname, '../parts-list/build')));
 
 
 app.use((req, res, next) => {
