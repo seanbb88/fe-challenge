@@ -1,9 +1,9 @@
-const express = require('express');
-const { parts, manufacturingProcesses } = require(__dirname + '/data.js');
+import express, { json, urlencoded } from 'express';
+import { parts, manufacturingProcesses } from './data.js';
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
