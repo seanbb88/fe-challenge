@@ -1,9 +1,17 @@
+/* eslint-disable no-undef */
 import express, { json, urlencoded } from 'express';
 import { parts, manufacturingProcesses } from './data.js';
+import { path } from 'path'; 
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(json());
 app.use(urlencoded({ extended: true }));
+
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -47,6 +55,6 @@ app.put('/parts/:id', (req, res) => {
   return res.json({ data: req.body });
 });
 
-const PORT = 5555;
+const PORT = process.env.PORT || 5555;
 
 app.listen(PORT, () => console.log(`Server running: http://localhost:${PORT}`));
