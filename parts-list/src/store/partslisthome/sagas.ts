@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, put, takeEvery, all, select, delay } from 'redux-saga/effects';
 import { fetchPartsList, updatePartsQty } from '../../api/partslisthome/PartsListHome';
 import { ResponseGenerator } from '../common/types';
