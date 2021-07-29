@@ -57,4 +57,4 @@ app.put('/parts/:id', (req, res) => {
 
 const PORT = process.env.PORT || 5555;
 
-app.listen(PORT, () => console.log(`Server running: http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running: https://localhost:${PORT}`));
